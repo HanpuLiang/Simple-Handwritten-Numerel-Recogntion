@@ -20,12 +20,12 @@ def JudgeEdge(img, length, flag, size):
         #Cow or Column 判断是行是列
         if flag == 0:
             #Positive sequence 正序判断该行是否有手写数字
-            line1 = img[img[i,:]<color]
+            line1 = img[i, img[i,:]<color]
             #Negative sequence 倒序判断该行是否有手写数字
-            line2 = img[img[length-1-i,:]<color]
+            line2 = img[length-1-i, img[length-1-i,:]<color]
         else:
-            line1 = img[img[:,i]<color]
-            line2 = img[img[:,length-1-i]<color]
+            line1 = img[img[:,i]<color, i]
+            line2 = img[img[:,length-1-i]<color,length-1-i]
         #If edge, recode serial number 若有手写数字，即到达边界，记录下行
         if len(line1)>=1 and size[0]==-1:
             size[0] = i
@@ -48,11 +48,11 @@ def CutPicture(img):
     size.append(JudgeEdge(img, length, 0, [-1, -1]))
     size.append(JudgeEdge(img, width, 1, [-1, -1]))
     size = np.array(size).reshape(4)
-    print(size)
     return img[size[0]:size[1]+1, size[2]:size[3]+1]
 
 def StretchPicture(img):
-    newImg = np.ones(N**2).reshape(N, N)
+    newImg1 = np.ones(N*len(img)).reshape(len(img), N)
+    newImg2 = np.ones(N**2).reshape(N, N)
     #对每一行进行拉伸/压缩
     #每一行拉伸/压缩的步长
     temp1 = len(img[0])/100
@@ -61,12 +61,12 @@ def StretchPicture(img):
     #对每一行进行操作
     for i in range(len(img)):
         for j in range(N):
-            newImg[i, j] = img[i, int(np.floor(j*temp1))]
+            newImg1[i, j] = img[i, int(np.floor(j*temp1))]
     #对每一列进行操作
-    for i in range(len(img[0])):
+    for i in range(N):
         for j in range(N):
-            newImg[j, i] = img[int(np.floor(j*temp2)), i]
-    return newImg
+            newImg2[i, j] = newImg1[int(np.floor(j*temp2)), j]
+    return newImg2
 
 #Read and save train picture 读取训练图片并保存
 def GetTrainPicture(files):
@@ -86,6 +86,5 @@ def GetTrainPicture(files):
         #Save the picture to the matrix 将图片存入矩阵
         Picture[i, 0:N**2] = img
         #Save picture's name to the matrix 将图片的名字存入矩阵
-        print(item[0])
-        Picture[i, N**2] = float(item[0])
+        Picture[i, N**2] = int(item[0])
     return Picture
