@@ -47,7 +47,7 @@ def NewFiles(fileNames, reader):
                 newFileNames.append(item)
         return newFileNames
 
-def HeBing(reader, pic):
+def Combination(reader, pic):
     '''将两个矩阵reader与pic合并'''
     #两个矩阵的总行数
     l = len(reader) + len(pic)

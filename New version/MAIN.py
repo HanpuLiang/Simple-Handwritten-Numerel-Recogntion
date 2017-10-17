@@ -31,5 +31,5 @@ pic = OP.GetTrainPicture(newFileNames)
 #将新增图片矩阵存入CSV中
 OD.SaveToCSV(pic, newFileNames)
 #将原数据库矩阵与新数据库矩阵合并
-pic = OD.HeBing(reader, pic)
+pic = OD.Combination(reader, pic)
 
