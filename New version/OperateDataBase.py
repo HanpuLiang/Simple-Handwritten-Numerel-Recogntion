@@ -17,16 +17,21 @@ N = 100
 color = 100/255
 
 def SaveToCSV(pic, fileNames):
+   '''将pic与对应的dileNames存入CSV文件'''
     writer = csv.writer(open('DataBase.csv', 'a', newline = ''), dialect = 'excel')
+    #将fileNames变为列表
     f = [item for item in fileNames]
+    #每一行依次写入文件中
     for i in range(len(pic)):
+        #将改行图片向量转为list
         item = pic[i].tolist()
+        #将这个图片向量对应的名称f放入列表最后一个
         item.append(f[i])
         writer.writerow(item)
     
 
-#判断是否有不同于数据库中的新文件加入
 def NewFiles(fileNames, reader):
+    '''判断是否有不同于数据库中的新文件加入'''
     #如果数据库中没有数据，则返回filenames
     if len(reader) == 0:
         return fileNames
@@ -43,6 +48,7 @@ def NewFiles(fileNames, reader):
         return newFileNames
 
 def HeBing(reader, pic):
+    '''将两个矩阵reader与pic合并'''
     #两个矩阵的总行数
     l = len(reader) + len(pic)
     #初始化新的矩阵

@@ -16,6 +16,7 @@ N = 100
 color = 100/255
 
 def JudgeEdge(img, length, flag, size):
+    '''Judge the Edge of Picture判断图片切割的边界'''
     for i in range(length):
         #Cow or Column 判断是行是列
         if flag == 0:
@@ -36,8 +37,8 @@ def JudgeEdge(img, length, flag, size):
             break
     return size
 
-#Cut the Picture 切割图象
 def CutPicture(img):
+    '''Cut the Picture 切割图象'''
     #初始化新大小
     size = []
     #图片的行数
@@ -51,6 +52,7 @@ def CutPicture(img):
     return img[size[0]:size[1]+1, size[2]:size[3]+1]
 
 def StretchPicture(img):
+    '''Stretch the Picture拉伸图像'''
     newImg1 = np.ones(N*len(img)).reshape(len(img), N)
     newImg2 = np.ones(N**2).reshape(N, N)
     #对每一行进行拉伸/压缩
@@ -68,8 +70,8 @@ def StretchPicture(img):
             newImg2[i, j] = newImg1[int(np.floor(j*temp2)), j]
     return newImg2
 
-#Read and save train picture 读取训练图片并保存
 def GetTrainPicture(files):
+    '''Read and save train picture 读取训练图片并保存'''
     Picture = np.zeros([len(files), N**2+1])
     #loop all pictures 循环所有图片文件
     for i, item in enumerate(files):
