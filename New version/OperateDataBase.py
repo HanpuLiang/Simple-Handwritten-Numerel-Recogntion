@@ -17,8 +17,8 @@ N = 100
 color = 100/255
 
 def SaveToCSV(pic, fileNames):
-   '''将pic与对应的dileNames存入CSV文件'''
-    writer = csv.writer(open('DataBase.csv', 'a', newline = ''), dialect = 'excel')
+    '''将pic与对应的dileNames存入CSV文件'''
+    writer = csv.writer(open('Database.csv', 'a', newline = ''), dialect = 'excel')
     #将fileNames变为列表
     f = [item for item in fileNames]
     #每一行依次写入文件中

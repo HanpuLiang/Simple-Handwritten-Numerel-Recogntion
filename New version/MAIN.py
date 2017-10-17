@@ -6,10 +6,9 @@ Created on Fri Oct 13 14:17:17 2017
 """
 
 import os
-from skimage import io
 import numpy as np
 import OperatePicture as OP
-import OperateDataBase as OD
+import OperateDatabase as OD
 import csv
 
 ##Essential vavriable 基础变量
@@ -19,14 +18,14 @@ N = 100
 color = 100/255
 
 #读取原CSV文件
-reader = list(csv.reader(open('DataBase.csv', encoding = 'utf-8')))
+reader = list(csv.reader(open('Database.csv', encoding = 'utf-8')))
 #清除读取后的第一个空行
 del reader[0]
 #读取num目录下的所有文件名
 fileNames = os.listdir(r"./num/")
 #对比fileNames与reader，得到新增的图片newFileNames
 newFileNames = OD.NewFiles(fileNames, reader)
-print('New pictures are: 'newFileNames)
+print('New pictures are: ', newFileNames)
 #得到newFilesNames对应的矩阵
 pic = OP.GetTrainPicture(newFileNames)
 #将新增图片矩阵存入CSV中
