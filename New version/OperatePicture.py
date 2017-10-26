@@ -8,17 +8,20 @@ Created on Sat Oct 14 18:47:21 2017
 import os
 from skimage import io
 import numpy as np
+import PictureAlgorithm as PA
 
 ##Essential vavriable 基础变量
 #Standard size 标准大小
 N = 100
 #Gray threshold 灰度阈值
-color = 100/255
+color = 150/255
+
+STR = list("$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. ")
 
 def JudgeEdge(img, length, flag, size):
     '''Judge the Edge of Picture判断图片切割的边界'''
     for i in range(length):
-        #Cow or Column 判断是行是列
+        #Row or Column 判断是行是列
         if flag == 0:
             #Positive sequence 正序判断该行是否有手写数字
             line1 = img[i, img[i,:]<color]
@@ -53,13 +56,13 @@ def CutPicture(img):
 
 def StretchPicture(img):
     '''Stretch the Picture拉伸图像'''
-    newImg1 = np.ones(N*len(img)).reshape(len(img), N)
-    newImg2 = np.ones(N**2).reshape(N, N)
+    newImg1 = np.zeros(N*len(img)).reshape(len(img), N)
+    newImg2 = np.zeros(N**2).reshape(N, N)
     #对每一行进行拉伸/压缩
     #每一行拉伸/压缩的步长
-    temp1 = len(img[0])/100
+    temp1 = len(img[0])/N 
     #每一列拉伸/压缩的步长
-    temp2 = len(img)/100
+    temp2 = len(img)/N
     #对每一行进行操作
     for i in range(len(img)):
         for j in range(N):
@@ -67,7 +70,7 @@ def StretchPicture(img):
     #对每一列进行操作
     for i in range(N):
         for j in range(N):
-            newImg2[i, j] = newImg1[int(np.floor(j*temp2)), j]
+            newImg2[i, j] = newImg1[int(np.floor(i*temp2)), j]
     return newImg2
 
 def GetTrainPicture(files):
@@ -90,3 +93,30 @@ def GetTrainPicture(files):
         #Save picture's name to the matrix 将图片的名字存入矩阵
         Picture[i, N**2] = int(item[0])
     return Picture
+
+def GetTestPicture(files):
+    '''得到待检测图片并保存'''
+    Picture = np.zeros([len(files), N**2])
+    for i, item in enumerate(files):
+        img = io.imread('./test/'+item, as_grey = True)
+        img[img>color] = 1
+        img = CutPicture(img)
+        img = StretchPicture(img).reshape(N**2)
+        Picture[i, 0:N**2] = img
+    return Picture
+
+def ShowPicture(pic):
+    l = len(STR)
+    for item in pic:
+        nowPic = item[0:N**2]
+        txt = ''
+        nowPic = nowPic.reshape(N, N)
+        for i in nowPic:
+            for j in i:
+                point = int(np.floor(l*(1-j)))
+                nowStr = STR[point-1]
+                txt = txt + nowStr
+            txt = txt + '\n'
+        f = open('./showpic/output1.txt', 'w')
+        f.write(txt)
+        f.close()

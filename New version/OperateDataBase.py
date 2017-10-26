@@ -14,7 +14,7 @@ import csv
 #Standard size 标准大小
 N = 100
 #Gray threshold 灰度阈值
-color = 100/255
+color = 200/255
 
 def SaveToCSV(pic, fileNames):
     '''将pic与对应的dileNames存入CSV文件'''
@@ -52,8 +52,8 @@ def Combination(reader, pic):
     #两个矩阵的总行数
     l = len(reader) + len(pic)
     #初始化新的矩阵
-    newPic = np.zeros(l*10001).reshape(l, 10001)
-    #将reader最后的那个字符串名称去掉
+    newPic = np.zeros(l*(N*N+1)).reshape(l, (N*N+1))
+    #将reader最后的那个字符串名称
     for item in reader:
         item.pop()
     #将reader转化为numpy的矩阵形式
