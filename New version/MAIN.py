@@ -41,7 +41,10 @@ testPic = OP.GetTestPicture(testFiles)
 
 #计算每一个待识别图片的可能分类
 result = PA.CalculateResult(testPic, pic)
-for i, item in enumerate(result):
-    print(testFiles[i])
-    for i in range(n):
-        print('第'+str(i+1)+'个向量为'+str(item[i+n])+',距离为'+str(item[i]))
+# for i, item in enumerate(result):
+#     print(testFiles[i])
+#     for i in range(n):
+#         print('第'+str(i+1)+'个向量为'+str(item[i+n])+',距离为'+str(item[i]))
+
+#通过分配权重重新计算排名
+newResult = PA.CalculateWeight(result, n, testFiles)

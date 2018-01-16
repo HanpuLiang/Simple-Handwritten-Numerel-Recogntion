@@ -41,3 +41,32 @@ def CalculateResult(test, train):
     #将testDis变成列表
     tt = testDis.tolist()
     return tt
+
+def ShowRank(weightDict):
+    '''输出单个图片的排名顺序'''
+    maxRank = [0, 9999]
+    for item in weightDict:
+        #寻找最小距离的数字
+        if weightDict[item] < maxRank[1]:
+            maxRank = [item, weightDict[item]]
+        print('数字'+item+'的相对距离为'+str(weightDict[item]))
+    print('最有可能为数字'+maxRank[0]+'，相对距离为'+str(weightDict[item]))
+    
+def CalculateWeight(pictures, n, testFiles):
+    '''计算加权距离'''
+    #权重（前五名）
+    temp = np.array([1, 2, 3, 4, 5])
+    weight = list(temp/np.sum(temp))
+    weightNum = len(weight)
+    for j, pic in enumerate(pictures):
+        print(testFiles[j])
+        #存储加权距离的字典
+        weightDict = {}
+        for k in range(weightNum):
+            #判断该数字之前是否出现过
+            if str(pic[n+i]) in weightDict:
+                weightDict[str(pic[n+i])] = weightDict[str(pic[n+i])] + weight[i]*pic[i]
+            else:
+                weightDict[str(pic[n+i])] = weight[i]*pic[i]
+        ShowRank(weightDict)
+            
