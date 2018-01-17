@@ -62,7 +62,7 @@ def CalculateWeight(pictures, n, testFiles):
         print(testFiles[j])
         #存储加权距离的字典
         weightDict = {}
-        for k in range(weightNum):
+        for i in range(weightNum):
             #判断该数字之前是否出现过
             if str(pic[n+i]) in weightDict:
                 weightDict[str(pic[n+i])] = weightDict[str(pic[n+i])] + weight[i]*pic[i]
