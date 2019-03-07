@@ -1,7 +1,32 @@
-# Simple-Handwritten-Numerel-Recogntion
+# 简易手写数字识别程序-Python
 
-This is a simple way to identify handwritten numbers. 
+## 简介
 
-There have two version about it, old version and new version. I written old version some mouths ago and it is too simple to identify handwritten numbers, so I will updata it and add some algorithms on it.
+该代码主要分为两个版本：新版本与旧版本。
+
+旧版本没有考虑图片尺寸与存储方式，复用性较小，将重点着重于识别的算法上，如果仅仅想学习如何将图片转为向量然后进行比较计算的话可以看旧版本。
+
+新版本则添加了许多图片剪裁、统一尺寸、存储到本地文件中、读取文件等更具有可操作性的内容，如果想了解这一套体系如何运作的话可以根据博客Blog/中的内容进行学习。
+
+因为写该代码的时间为2017年，所以并不能保证代码质量，彼时笔者正处于学习阶段，该代码只是为了熟悉Python的各种语法与操作，代码中缺少了很多操作异常所必要的报错以及日志文件。目前学习重心并不在这方面，笔者也没有时间去重构，因此就不再进行修改，仅为初学者提供一份早期的思路。
+
+## 运行方式
+
+所需要的Python版本为3.x，操作系统为Windows。
+
+在确保有相关库的情况下，在命令行输入
+
+```shell
+python MAIN.py
+```
+
+即可运行，并计算目标测试图片。
+
+或者，可以通过Anaconda自带的Spyder打开MAIN.py后运行。
+
+## 声明
+
+该代码均为Liang Hanpu所写，提供给诸位用来参考学习，不可将其复制粘贴后用于商用。
+
 
 
